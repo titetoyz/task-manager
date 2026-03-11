@@ -89,4 +89,31 @@ export class App implements OnInit {
       alert('Nem sikerült létrehozni a taskot.');
     }
   }
+
+  async deleteTask(id?: string): Promise<void> {
+    if (!id) {
+      alert('Ehhez a taskhoz nincs ID.');
+      return;
+    }
+
+    const confirmed = confirm('Biztosan törölni szeretnéd ezt a taskot?');
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://127.0.0.1:5069/api/tasks/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP hiba: ${response.status}`);
+      }
+
+      await this.loadTasks();
+    } catch (error) {
+      console.error('Törlési hiba:', error);
+      alert('Nem sikerült törölni a taskot.');
+    }
+  }
 }

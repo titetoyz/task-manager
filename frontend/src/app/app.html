@@ -39,6 +39,7 @@
 <ul *ngIf="!loading && tasks.length > 0">
   <li *ngFor="let task of tasks">
     <b>{{ task.title }}</b> - {{ task.description }} ({{ task.status }})
+    <button (click)="deleteTask(task.id)" style="margin-left: 10px;">Törlés</button>
   </li>
 </ul>
 
