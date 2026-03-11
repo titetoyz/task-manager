@@ -1,5 +1,38 @@
 <h1>Task Manager</h1>
 
+<h2>Új task létrehozása</h2>
+
+<div>
+  <label for="title">Title:</label><br>
+  <input id="title" type="text" [(ngModel)]="newTask.title">
+</div>
+
+<br>
+
+<div>
+  <label for="description">Description:</label><br>
+  <input id="description" type="text" [(ngModel)]="newTask.description">
+</div>
+
+<br>
+
+<div>
+  <label for="status">Status:</label><br>
+  <select id="status" [(ngModel)]="newTask.status">
+    <option value="Todo">Todo</option>
+    <option value="InProgress">InProgress</option>
+    <option value="Done">Done</option>
+  </select>
+</div>
+
+<br>
+
+<button (click)="addTask()">Task létrehozása</button>
+
+<hr>
+
+<h2>Task lista</h2>
+
 <p *ngIf="loading">Betöltés...</p>
 <p *ngIf="errorMessage">{{ errorMessage }}</p>
 
