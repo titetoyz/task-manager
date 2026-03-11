@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8NlKlp5+rkw=",
+  "dgSpecHash": "0ILvI/gyhWs=",
   "success": true,
-  "projectFilePath": "C:\\task-manager\\backend\\taskmanager.api\\TaskManager.Api.csproj",
+  "projectFilePath": "C:\\task-manager\\backend\\TaskManager.Api\\TaskManager.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\SOMA.BALOM\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.4\\microsoft.aspnetcore.openapi.10.0.4.nupkg.sha512",
     "C:\\Users\\SOMA.BALOM\\.nuget\\packages\\microsoft.extensions.apidescription.server\\10.0.0\\microsoft.extensions.apidescription.server.10.0.0.nupkg.sha512",

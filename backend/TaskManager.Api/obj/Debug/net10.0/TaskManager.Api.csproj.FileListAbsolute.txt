@@ -34,3 +34,4 @@ C:\task-manager\backend\TaskManager.Api\obj\Debug\net10.0\ref\TaskManager.Api.dl
 C:\task-manager\backend\taskmanager.api\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\task-manager\backend\taskmanager.api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\task-manager\backend\taskmanager.api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\task-manager\backend\TaskManager.Api\obj\Debug\net10.0\TaskManager.Api.sourcelink.json
