@@ -44,11 +44,9 @@ A rendszer három fő komponensből áll.
 
 ```
 Angular Frontend
-        |
         | HTTP REST API
-        v
+        v 
 ASP.NET Backend
-        |
         | MongoDB Driver
         v
 MongoDB Database
