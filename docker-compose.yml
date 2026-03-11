@@ -1,7 +1,4 @@
-version: "3.9"
-
 services:
-
   mongodb:
     image: mongo:8
     container_name: mongodb
@@ -22,6 +19,15 @@ services:
       - MongoDbSettings__ConnectionString=mongodb://mongodb:27017
       - MongoDbSettings__DatabaseName=taskdb
       - MongoDbSettings__TasksCollectionName=tasks
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: taskmanager-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
 
 volumes:
   mongo-data:

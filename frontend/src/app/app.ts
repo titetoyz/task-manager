@@ -18,6 +18,7 @@ interface Task {
   styleUrl: './app.css'
 })
 export class App implements OnInit {
+
   tasks: Task[] = [];
   errorMessage = '';
   loading = true;
@@ -38,14 +39,14 @@ export class App implements OnInit {
     this.loading = true;
 
     try {
-      const response = await fetch('http://127.0.0.1:5069/api/tasks');
+
+      const response = await fetch('/api/tasks');
 
       if (!response.ok) {
         throw new Error(`HTTP hiba: ${response.status}`);
       }
 
-      const text = await response.text();
-      const data: Task[] = JSON.parse(text);
+      const data: Task[] = await response.json();
 
       this.tasks = data.map(task => ({
         ...task,
@@ -53,24 +54,30 @@ export class App implements OnInit {
       }));
 
       this.errorMessage = '';
-      this.cd.detectChanges();
+
     } catch (error) {
+
       console.error('API HIBA:', error);
       this.errorMessage = 'Nem sikerült betölteni a taskokat.';
+
     } finally {
+
       this.loading = false;
       this.cd.detectChanges();
+
     }
   }
 
   async addTask(): Promise<void> {
+
     if (!this.newTask.title.trim() || !this.newTask.description.trim()) {
       alert('A title és a description kötelező.');
       return;
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:5069/api/tasks', {
+
+      const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -93,19 +100,21 @@ export class App implements OnInit {
       };
 
       await this.loadTasks();
+
     } catch (error) {
+
       console.error('Mentési hiba:', error);
       alert('Nem sikerült létrehozni a taskot.');
+
     }
   }
 
   async updateStatus(task: Task): Promise<void> {
-    if (!task.id) {
-      alert('Ehhez a taskhoz nincs ID.');
-      return;
-    }
+
+    if (!task.id) return;
 
     try {
+
       const updatedTask = {
         id: task.id,
         title: task.title,
@@ -113,7 +122,7 @@ export class App implements OnInit {
         status: task.editStatus ?? task.status
       };
 
-      const response = await fetch(`http://127.0.0.1:5069/api/tasks/${task.id}`, {
+      const response = await fetch(`/api/tasks/${task.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -126,25 +135,28 @@ export class App implements OnInit {
       }
 
       await this.loadTasks();
+
     } catch (error) {
+
       console.error('Status update hiba:', error);
       alert('Nem sikerült frissíteni a státuszt.');
+
     }
   }
 
   async deleteTask(id?: string): Promise<void> {
+
     if (!id) {
       alert('Ehhez a taskhoz nincs ID.');
       return;
     }
 
     const confirmed = confirm('Biztosan törölni szeretnéd ezt a taskot?');
-    if (!confirmed) {
-      return;
-    }
+    if (!confirmed) return;
 
     try {
-      const response = await fetch(`http://127.0.0.1:5069/api/tasks/${id}`, {
+
+      const response = await fetch(`/api/tasks/${id}`, {
         method: 'DELETE'
       });
 
@@ -153,9 +165,12 @@ export class App implements OnInit {
       }
 
       await this.loadTasks();
+
     } catch (error) {
+
       console.error('Törlési hiba:', error);
       alert('Nem sikerült törölni a taskot.');
+
     }
   }
 }
