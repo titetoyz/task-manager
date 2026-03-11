@@ -1,0 +1,14 @@
+<h1>Task Manager</h1>
+
+<p *ngIf="loading">Betöltés...</p>
+<p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<ul *ngIf="!loading && tasks.length > 0">
+  <li *ngFor="let task of tasks">
+    <b>{{ task.title }}</b> - {{ task.description }} ({{ task.status }})
+  </li>
+</ul>
+
+<p *ngIf="!loading && tasks.length === 0 && !errorMessage">
+  Nincs megjeleníthető task.
+</p>
