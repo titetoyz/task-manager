@@ -157,26 +157,6 @@ A Docker image-ek elérhetőek:
 ghcr.io/titetoyz/task-manager-backend
 ghcr.io/titetoyz/task-manager-frontend
 ```
-
----
-
-# Projekt struktúra
-
-```
-task-manager
-│
-├── backend
-│   └── TaskManager.Api
-│
-├── frontend
-│
-├── docker-compose.yml
-│
-└── .github
-    └── workflows
-        └── ci.yml
-```
-
 ---
 
 # Használat
