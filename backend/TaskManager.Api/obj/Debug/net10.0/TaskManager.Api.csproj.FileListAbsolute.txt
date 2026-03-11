@@ -35,3 +35,9 @@ C:\task-manager\backend\taskmanager.api\bin\Debug\net10.0\Swashbuckle.AspNetCore
 C:\task-manager\backend\taskmanager.api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\task-manager\backend\taskmanager.api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\task-manager\backend\TaskManager.Api\obj\Debug\net10.0\TaskManager.Api.sourcelink.json
+C:\task-manager\backend\TaskManager.Api\bin\Debug\net10.0\DnsClient.dll
+C:\task-manager\backend\TaskManager.Api\bin\Debug\net10.0\MongoDB.Bson.dll
+C:\task-manager\backend\TaskManager.Api\bin\Debug\net10.0\MongoDB.Driver.dll
+C:\task-manager\backend\TaskManager.Api\bin\Debug\net10.0\SharpCompress.dll
+C:\task-manager\backend\TaskManager.Api\bin\Debug\net10.0\Snappier.dll
+C:\task-manager\backend\TaskManager.Api\bin\Debug\net10.0\ZstdSharp.dll

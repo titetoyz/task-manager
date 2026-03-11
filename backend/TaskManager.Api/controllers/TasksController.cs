@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TaskManager.Api.Models;
+using TaskManager.Api.Services;
 
 namespace TaskManager.Api.Controllers;
 
@@ -6,60 +8,69 @@ namespace TaskManager.Api.Controllers;
 [Route("api/[controller]")]
 public class TasksController : ControllerBase
 {
-    static List<TaskItem> tasks = new()
-    {
-        new TaskItem { Id = 1, Title = "Első task", Status = "Todo" },
-        new TaskItem { Id = 2, Title = "Második task", Status = "Done" }
-    };
+    private readonly TaskService _taskService;
 
-    // GET /api/tasks
-    [HttpGet]
-    public IActionResult Get()
+    public TasksController(TaskService taskService)
     {
+        _taskService = taskService;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<TaskItem>>> Get()
+    {
+        var tasks = await _taskService.GetAsync();
         return Ok(tasks);
     }
 
-    // POST /api/tasks
+    [HttpGet("{id:length(24)}")]
+    public async Task<ActionResult<TaskItem>> Get(string id)
+    {
+        var task = await _taskService.GetAsync(id);
+
+        if (task is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(task);
+    }
+
     [HttpPost]
-    public IActionResult Create(TaskItem task)
+    public async Task<IActionResult> Post(TaskItem newTask)
     {
-        tasks.Add(task);
-        return Ok(task);
+        await _taskService.CreateAsync(newTask);
+        return CreatedAtAction(nameof(Get), new { id = newTask.Id }, newTask);
     }
 
-    // PUT /api/tasks/1
-    [HttpPut("{id}")]
-    public IActionResult Update(int id, TaskItem updatedTask)
+    [HttpPut("{id:length(24)}")]
+    public async Task<IActionResult> Update(string id, TaskItem updatedTask)
     {
-        var task = tasks.FirstOrDefault(t => t.Id == id);
+        var existingTask = await _taskService.GetAsync(id);
 
-        if (task == null)
+        if (existingTask is null)
+        {
             return NotFound();
+        }
 
-        task.Title = updatedTask.Title;
-        task.Status = updatedTask.Status;
+        updatedTask.Id = existingTask.Id;
 
-        return Ok(task);
+        await _taskService.UpdateAsync(id, updatedTask);
+
+        return NoContent();
     }
 
-    // DELETE /api/tasks/1
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    [HttpDelete("{id:length(24)}")]
+    public async Task<IActionResult> Delete(string id)
     {
-        var task = tasks.FirstOrDefault(t => t.Id == id);
+        var existingTask = await _taskService.GetAsync(id);
 
-        if (task == null)
+        if (existingTask is null)
+        {
             return NotFound();
+        }
 
-        tasks.Remove(task);
+        await _taskService.RemoveAsync(id);
 
-        return Ok();
+        return NoContent();
     }
-}
-
-public class TaskItem
-{
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string Status { get; set; }
 }
