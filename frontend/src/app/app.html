@@ -28,19 +28,40 @@
   <h2>Task lista</h2>
 
   <p *ngIf="loading">Betöltés...</p>
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
 
   <div *ngFor="let task of tasks" class="task-item">
 
     <div class="task-text">
-      <b>{{task.title}}</b> – {{task.description}}
-      ({{task.status}})
+      <b>{{ task.title }}</b> – {{ task.description }}
     </div>
 
-    <button
-      class="delete-btn"
-      (click)="deleteTask(task.id)">
-      Törlés
-    </button>
+    <div class="task-actions">
+      <span
+        class="status-badge"
+        [ngClass]="{
+          'status-todo': task.status === 'Todo',
+          'status-progress': task.status === 'InProgress',
+          'status-done': task.status === 'Done'
+        }"
+      >
+        {{ task.status }}
+      </span>
+
+      <select [(ngModel)]="task.editStatus">
+        <option value="Todo">Todo</option>
+        <option value="InProgress">In Progress</option>
+        <option value="Done">Done</option>
+      </select>
+
+      <button class="update-btn" (click)="updateStatus(task)">
+        Update
+      </button>
+
+      <button class="delete-btn" (click)="deleteTask(task.id)">
+        Törlés
+      </button>
+    </div>
 
   </div>
 

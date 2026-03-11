@@ -7,6 +7,7 @@ interface Task {
   title: string;
   description: string;
   status: string;
+  editStatus?: string;
 }
 
 @Component({
@@ -46,7 +47,11 @@ export class App implements OnInit {
       const text = await response.text();
       const data: Task[] = JSON.parse(text);
 
-      this.tasks = data;
+      this.tasks = data.map(task => ({
+        ...task,
+        editStatus: task.status
+      }));
+
       this.errorMessage = '';
       this.cd.detectChanges();
     } catch (error) {
@@ -70,7 +75,11 @@ export class App implements OnInit {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(this.newTask)
+        body: JSON.stringify({
+          title: this.newTask.title,
+          description: this.newTask.description,
+          status: this.newTask.status
+        })
       });
 
       if (!response.ok) {
@@ -87,6 +96,39 @@ export class App implements OnInit {
     } catch (error) {
       console.error('Mentési hiba:', error);
       alert('Nem sikerült létrehozni a taskot.');
+    }
+  }
+
+  async updateStatus(task: Task): Promise<void> {
+    if (!task.id) {
+      alert('Ehhez a taskhoz nincs ID.');
+      return;
+    }
+
+    try {
+      const updatedTask = {
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        status: task.editStatus ?? task.status
+      };
+
+      const response = await fetch(`http://127.0.0.1:5069/api/tasks/${task.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedTask)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP hiba: ${response.status}`);
+      }
+
+      await this.loadTasks();
+    } catch (error) {
+      console.error('Status update hiba:', error);
+      alert('Nem sikerült frissíteni a státuszt.');
     }
   }
 

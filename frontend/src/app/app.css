@@ -4,7 +4,7 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 40px auto;
   background: white;
   padding: 30px;
@@ -25,9 +25,11 @@ input, select {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
+  margin-bottom: 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 button {
@@ -45,6 +47,15 @@ button:hover {
   background: #43a047;
 }
 
+.update-btn {
+  background: #1976d2;
+  margin-left: 10px;
+}
+
+.update-btn:hover {
+  background: #1565c0;
+}
+
 .delete-btn {
   background: #e53935;
   margin-left: 10px;
@@ -58,10 +69,47 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 14px 0;
   border-bottom: 1px solid #eee;
+  gap: 20px;
 }
 
 .task-text {
+  flex: 1;
   font-size: 15px;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 420px;
+}
+
+.task-actions select {
+  width: 150px;
+  margin: 0;
+}
+
+.status-badge {
+  display: inline-block;
+  min-width: 95px;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+}
+
+.status-todo {
+  background: #757575;
+}
+
+.status-progress {
+  background: #fb8c00;
+}
+
+.status-done {
+  background: #43a047;
 }
